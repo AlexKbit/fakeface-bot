@@ -52,7 +52,7 @@ public class AccountService {
     }
 
     public List<Account> getTop() {
-        return repository.findTop10ByOrderByScoreDescTimestampAsc();
+        return repository.findTop10ByFinishedTrueOrderByScoreDescTimestampAsc();
     }
 
 }
