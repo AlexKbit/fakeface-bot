@@ -2,14 +2,15 @@ package com.alexkbit.fakefacebot.service;
 
 import com.alexkbit.fakefacebot.model.PhotoType;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -25,10 +26,10 @@ public class PhotoService {
             return photo;
         }
         try {
-            File file = ResourceUtils.getFile(key);
-            photo.setPhoto(file);
+            InputStream is = new ClassPathResource(key).getInputStream();
+            photo.setPhoto(UUID.randomUUID().toString(), is);
             return photo;
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             log.error("Error load photo with name {}", e, name);
         }
         return null;
