@@ -71,14 +71,15 @@ public class FakeFaceBot extends CommandBot {
 
     private void sendNextPhoto(Long chatId, Account account, Integer nextPhoto) {
         Question q = questionsConfig.findById(nextPhoto);
-        File file = photoService.getPhoto(q.getPhoto(), q.getType());
-        SendPhoto photo = new SendPhoto();
-        photo.setPhoto(file);
+        SendPhoto photo = photoService.getPhoto(q.getPhoto(), q.getType());
         photo.setCaption(getMessage("messages.chooseface", account.getLocale(), nextPhoto + 1));
         photo.setChatId(chatId);
         photo.setReplyMarkup(createKeyBoard());
         try {
-            execute(photo);
+            Message response = execute(photo);
+            if (!response.getPhoto().isEmpty()) {
+                photoService.updateCache(q.getPhoto(), q.getType(), response.getPhoto().get(0).getFileId());
+            }
         } catch (TelegramApiException e) {
             log.error("Send photo to chatId = {} error: ", e, chatId);
         }
