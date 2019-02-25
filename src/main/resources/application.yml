@@ -1,0 +1,112 @@
+server:
+    port: ${PORT:9000}
+spring:
+  application:
+      name: fakeface-bot
+      date: '@build.date@'
+      version: '@build.version@'
+  data.mongodb:
+    uri: ${MONGO_DB}
+
+telegram.bot:
+  name: ${BOT_NAME}
+  token: ${BOT_TOKEN}
+
+logging:
+  level:
+    ROOT: INFO
+    com.alexkbit: DEBUG
+    org.springframework: INFO
+
+questions-config:
+  questions:
+  - id: 0
+    photo: "fake1.jpg"
+    type: FAKE
+  - id: 1
+    photo: "real1.jpg"
+    type: REAL
+  - id: 2
+    photo: "fake2.jpg"
+    type: FAKE
+  - id: 3
+    photo: "fake3.jpg"
+    type: FAKE
+  - id: 4
+    photo: "real2.jpg"
+    type: REAL
+  - id: 5
+    photo: "fake4.jpg"
+    type: FAKE
+  - id: 6
+    photo: "fake5.jpg"
+    type: FAKE
+  - id: 7
+    photo: "real3.jpg"
+    type: REAL
+  - id: 8
+    photo: "real4.jpg"
+    type: REAL
+  - id: 9
+    photo: "real5.jpg"
+    type: REAL
+  - id: 10
+    photo: "fake6.jpg"
+    type: FAKE
+  - id: 11
+    photo: "real6.jpg"
+    type: REAL
+  - id: 12
+    photo: "fake7.jpg"
+    type: FAKE
+  - id: 13
+    photo: "real7.jpg"
+    type: REAL
+  - id: 14
+    photo: "real8.jpg"
+    type: REAL
+  - id: 15
+    photo: "real9.jpg"
+    type: REAL
+  - id: 16
+    photo: "fake8.jpg"
+    type: FAKE
+  - id: 17
+    photo: "fake9.jpg"
+    type: FAKE
+  - id: 18
+    photo: "fake10.jpg"
+    type: FAKE
+  - id: 19
+    photo: "fake11.jpg"
+    type: FAKE
+  - id: 20
+    photo: "real10.jpg"
+    type: REAL
+  - id: 21
+    photo: "real11.jpg"
+    type: REAL
+  - id: 22
+    photo: "fake12.jpg"
+    type: FAKE
+  - id: 23
+    photo: "real12.jpg"
+    type: REAL
+  - id: 24
+    photo: "fake13.jpg"
+    type: FAKE
+  - id: 25
+    photo: "real13.jpg"
+    type: REAL
+  - id: 26
+    photo: "real14.jpg"
+    type: REAL
+  - id: 27
+    photo: "fake14.jpg"
+    type: FAKE
+  - id: 28
+    photo: "fake15.jpg"
+    type: FAKE
+  - id: 29
+    photo: "real15.jpg"
+    type: REAL

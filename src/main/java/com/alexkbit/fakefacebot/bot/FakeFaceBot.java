@@ -1,0 +1,110 @@
+package com.alexkbit.fakefacebot.bot;
+
+import com.alexkbit.fakefacebot.model.Account;
+import com.alexkbit.fakefacebot.model.PhotoType;
+import com.alexkbit.fakefacebot.model.Question;
+import com.alexkbit.fakefacebot.service.PhotoService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+@Slf4j
+@Component
+public class FakeFaceBot extends CommandBot {
+
+    private static final String FAKE = "FAKE";
+    private static final String REAL = "REAL";
+
+    @Value("${telegram.bot.name}")
+    private String botName;
+
+    @Value("${telegram.bot.token}")
+    private String botToken;
+
+    @Autowired
+    private PhotoService photoService;
+
+
+    @Override
+    public void onReceived(Message msg, Long chatId, Account account, String text) {
+        if (account.isFinished()) {
+            sendKeyMessage(chatId, "messages.done", account.getLocale());
+            return;
+        }
+        Integer currentQuestion = account.getCurrentQuestion();
+        switch (text) {
+            case FAKE:
+                account.addAnswer(currentQuestion, PhotoType.FAKE, questionsConfig.isValid(currentQuestion, PhotoType.FAKE));
+                accountService.update(account);
+                break;
+            case REAL:
+                account.addAnswer(currentQuestion, PhotoType.REAL, questionsConfig.isValid(currentQuestion, PhotoType.REAL));
+                accountService.update(account);
+                break;
+        }
+        sendNextQuestion(chatId, account);
+    }
+
+    private void sendNextQuestion(Long chatId, Account account) {
+        Integer nextQuestion = account.getCurrentQuestion();
+        Integer totalQuestion = questionsConfig.size();
+        if (nextQuestion >= totalQuestion) {
+            account.updateScore();
+            accountService.update(account);
+            sendKeyMessage(chatId, "messages.done", account.getLocale());
+            log.debug("Account = {} completed quiz", account);
+            return;
+        }
+        sendNextPhoto(chatId, account, nextQuestion);
+    }
+
+    private void sendNextPhoto(Long chatId, Account account, Integer nextPhoto) {
+        Question q = questionsConfig.findById(nextPhoto);
+        File file = photoService.getPhoto(q.getPhoto(), q.getType());
+        SendPhoto photo = new SendPhoto();
+        photo.setPhoto(file);
+        photo.setCaption(getMessage("messages.chooseface", account.getLocale(), nextPhoto + 1));
+        photo.setChatId(chatId);
+        photo.setReplyMarkup(createKeyBoard());
+        try {
+            execute(photo);
+        } catch (TelegramApiException e) {
+            log.error("Send photo to chatId = {} error: ", e, chatId);
+        }
+    }
+
+    private ReplyKeyboardMarkup createKeyBoard() {
+        ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(false);
+        List<KeyboardRow> keyboard = new ArrayList<>();
+        KeyboardRow keyboardFirstRow = new KeyboardRow();
+        keyboardFirstRow.add(new KeyboardButton(FAKE));
+        keyboardFirstRow.add(new KeyboardButton(REAL));
+        keyboard.add(keyboardFirstRow);
+        replyKeyboardMarkup.setKeyboard(keyboard);
+        return replyKeyboardMarkup;
+    }
+
+    @Override
+    public String getBotUsername() {
+        return botName;
+    }
+
+    @Override
+    public String getBotToken() {
+        return botToken;
+    }
+}
