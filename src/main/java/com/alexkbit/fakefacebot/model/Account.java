@@ -21,6 +21,7 @@ public class Account {
     private String firstName;
     private String lastName;
     private String langCode;
+    private Long chatId;
     private Date createdAt = new Date();
     @Indexed
     private Long score;

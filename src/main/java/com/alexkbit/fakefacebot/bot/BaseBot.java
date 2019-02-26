@@ -24,7 +24,7 @@ public abstract class BaseBot extends TelegramLongPollingBot {
         User user = msg.getFrom();
         String text = msg.getText();
         Long chatId = update.getMessage().getChatId();
-        Account account = findAccount(user);
+        Account account = findAccount(msg);
         if (messageFilter(msg, chatId, account, text)) {
             return;
         }
@@ -35,13 +35,19 @@ public abstract class BaseBot extends TelegramLongPollingBot {
 
     protected abstract boolean messageFilter(Message msg, Long chatId, Account account, String text);
 
-    private Account findAccount(User user) {
+    private Account findAccount(Message msg) {
+        User user = msg.getFrom();
+        Long chatId = msg.getChatId();
         Account account = accountService.getByAccountId(user.getId());
         if (account != null) {
             log.debug("Load account: {}", account);
             return account;
         }
-        account = accountService.registration(user.getId(), user.getUserName(), user.getFirstName(), user.getLastName(), user.getLanguageCode());
+        account = accountService.registration(
+                user.getId(), user.getUserName(),
+                user.getFirstName(), user.getLastName(),
+                user.getLanguageCode(), chatId);
+        account.setChatId(chatId);
         return account;
     }
 }

@@ -7,12 +7,12 @@ import java.util.stream.Stream;
 @Getter
 public enum Command {
 
+    CMD_ID("id", "messages.accountId", "messages.description.cmd.accountId"),
     CMD_UNSUPPORTED("", "messages.description.cmd.unsupported", "messages.description.cmd.unsupported"),
     CMD_START("start", "messages.welcome", "messages.description.cmd.start"),
     CMD_TOP("top", "messages.topTitle", "messages.description.cmd.top"),
     CMD_SCORE("score", "messages.scoreTitle", "messages.description.cmd.score"),
-    CMD_HELP("help", "messages.helpTitle", "messages.description.cmd.help"),
-    CMD_ID("id", "messages.accountId", "messages.description.cmd.accountId");
+    CMD_HELP("help", "messages.helpTitle", "messages.description.cmd.help");
 
     private String name;
     private String text;

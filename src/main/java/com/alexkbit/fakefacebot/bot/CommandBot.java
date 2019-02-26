@@ -20,7 +20,7 @@ public abstract class CommandBot extends MessageBot {
             Command cmd = Command.valueOfByText(msg.getText());
             switch (cmd) {
                 case CMD_START:
-                    sendKeyMessage(chatId, cmd.getKey(), account.getLocale());
+                    sendKeyMessage(chatId, cmd.getKey(), account.getLocale(), questionsConfig.size());
                     return false;
                 case CMD_UNSUPPORTED:
                     sendKeyMessage(chatId, cmd.getKey(), account.getLocale());

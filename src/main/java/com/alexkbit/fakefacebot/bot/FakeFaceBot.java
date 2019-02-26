@@ -15,7 +15,6 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +34,7 @@ public class FakeFaceBot extends CommandBot {
     @Autowired
     private PhotoService photoService;
 
+    private boolean enable = true;
 
     @Override
     public void onReceived(Message msg, Long chatId, Account account, String text) {
@@ -98,6 +98,12 @@ public class FakeFaceBot extends CommandBot {
         keyboard.add(keyboardFirstRow);
         replyKeyboardMarkup.setKeyboard(keyboard);
         return replyKeyboardMarkup;
+    }
+
+    public void notifyWinners() {
+        List<Account> winners = accountService.getTop();
+        winners.forEach(account -> sendKeyMessage(account.getChatId(), "messages.winner", account.getLocale()));
+        log.info("Notify winners: {}", winners);
     }
 
     @Override

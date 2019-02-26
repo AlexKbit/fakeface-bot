@@ -18,13 +18,14 @@ public class AccountService {
     @Autowired
     private AccountRepository repository;
 
-    public Account registration(Integer id, String login, String firstName, String lastName, String langCode) {
+    public Account registration(Integer id, String login, String firstName, String lastName, String langCode, Long chatId) {
         Account account = new Account();
         account.setAccountId(id);
         account.setLogin(login);
         account.setFirstName(firstName);
         account.setLastName(lastName);
         account.setLangCode(langCode);
+        account.setChatId(chatId);
         account.setScore(0L);
         Account result = repository.save(account);
         log.info("Registered: {}", result);
