@@ -15,7 +15,7 @@ telegram.bot:
 logging:
   level:
     ROOT: INFO
-    com.alexkbit: DEBUG
+    com.alexkbit: INFO
     org.springframework: INFO
 
 questions-config:

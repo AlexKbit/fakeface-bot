@@ -42,6 +42,10 @@ public class FakeFaceBot extends CommandBot {
             sendKeyMessage(chatId, "messages.done", account.getLocale());
             return;
         }
+        if (!enable) {
+            sendKeyMessage(chatId, "messages.end", account.getLocale());
+            return;
+        }
         Integer currentQuestion = account.getCurrentQuestion();
         switch (text) {
             case FAKE:
@@ -73,7 +77,7 @@ public class FakeFaceBot extends CommandBot {
     private void sendNextPhoto(Long chatId, Account account, Integer nextPhoto) {
         Question q = questionsConfig.findById(nextPhoto);
         SendPhoto photo = photoService.getPhoto(q.getPhoto(), q.getType());
-        photo.setCaption(getMessage("messages.chooseface", account.getLocale(), nextPhoto + 1));
+        photo.setCaption(getMessage("messages.chooseFace", account.getLocale(), nextPhoto + 1));
         photo.setChatId(chatId);
         photo.setReplyMarkup(createKeyBoard());
         try {
@@ -104,6 +108,14 @@ public class FakeFaceBot extends CommandBot {
         List<Account> winners = accountService.getTop();
         winners.forEach(account -> sendKeyMessage(account.getChatId(), "messages.winner", account.getLocale()));
         log.info("Notify winners: {}", winners);
+    }
+
+    public void enable() {
+        this.enable = true;
+    }
+
+    public void disable() {
+        this.enable = false;
     }
 
     @Override

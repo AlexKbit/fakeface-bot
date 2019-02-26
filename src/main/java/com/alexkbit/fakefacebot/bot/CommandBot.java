@@ -22,9 +22,6 @@ public abstract class CommandBot extends MessageBot {
                 case CMD_START:
                     sendKeyMessage(chatId, cmd.getKey(), account.getLocale(), questionsConfig.size());
                     return false;
-                case CMD_UNSUPPORTED:
-                    sendKeyMessage(chatId, cmd.getKey(), account.getLocale());
-                    return true;
                 case CMD_HELP:
                     sendMessage(chatId, helpCommand(account.getLocale()));
                     return true;
@@ -32,13 +29,15 @@ public abstract class CommandBot extends MessageBot {
                     sendScore(chatId, account);
                     return true;
                 case CMD_TOP:
-                    sendMessage(chatId, topCommand(account.getAccountId(), account.getLocale()));
+                    sendMessage(chatId, topCommand(account.getLocale()));
                     return true;
                 case CMD_ID:
-                    sendKeyMessage(chatId, cmd.getKey(), account.getLocale(), account.getAccountId());
+                    sendKeyMessage(chatId, cmd.getKey(), account.getLocale(), account.getAccountId().toString());
                     return true;
+                case CMD_UNSUPPORTED:
                 default:
-                    return false;
+                    sendKeyMessage(chatId, Command.CMD_UNSUPPORTED.getKey(), account.getLocale());
+                    return true;
             }
         }
         return false;
@@ -61,16 +60,15 @@ public abstract class CommandBot extends MessageBot {
     }
 
     private String scoreCommand(Account account) {
-        StringBuilder sb = new StringBuilder();
         Long score = accountService.getByAccountId(account.getAccountId()).getScore();
         Integer total = questionsConfig.size();
-        Long position = accountService.getPosition(account.getScore(), account.getTimestamp());
+        long position = accountService.getPosition(account.getScore(), account.getTimestamp());
         Long allPeople = accountService.getTotal();
         Long allFinished = accountService.getTotalFinished();
         return getMessage(Command.CMD_SCORE.getKey(), account.getLocale(), score, total, position + 1, allPeople, allFinished);
     }
 
-    private String topCommand(Integer accountId, Locale locale) {
+    private String topCommand(Locale locale) {
         StringBuilder sb = new StringBuilder();
         sb.append(getMessage(Command.CMD_TOP.getKey(), locale));
         List<Account> topList = accountService.getTop();

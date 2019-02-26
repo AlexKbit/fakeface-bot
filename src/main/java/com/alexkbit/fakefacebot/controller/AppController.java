@@ -1,5 +1,6 @@
 package com.alexkbit.fakefacebot.controller;
 
+import com.alexkbit.fakefacebot.bot.FakeFaceBot;
 import com.alexkbit.fakefacebot.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class AppController {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    private FakeFaceBot fakeFaceBot;
+
     @GetMapping(value = "/info")
     @ResponseStatus(HttpStatus.OK)
     public Map getInfo() {
@@ -45,5 +49,29 @@ public class AppController {
         stat.put("totalTotal", accountService.getTotal());
         log.debug("getStat() - end");
         return stat;
+    }
+
+    @GetMapping(value = "/notify")
+    @ResponseStatus(HttpStatus.OK)
+    public void getNotify() {
+        log.debug("getNotify() - start");
+        fakeFaceBot.notifyWinners();
+        log.debug("getNotify() - end");
+    }
+
+    @GetMapping(value = "/enable")
+    @ResponseStatus(HttpStatus.OK)
+    public void enable() {
+        log.debug("enable() - start");
+        fakeFaceBot.enable();
+        log.debug("enable() - end");
+    }
+
+    @GetMapping(value = "/disable")
+    @ResponseStatus(HttpStatus.OK)
+    public void disable() {
+        log.debug("disable() - start");
+        fakeFaceBot.disable();
+        log.debug("disable() - end");
     }
 }
