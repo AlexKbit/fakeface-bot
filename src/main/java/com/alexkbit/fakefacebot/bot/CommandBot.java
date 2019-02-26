@@ -29,7 +29,7 @@ public abstract class CommandBot extends MessageBot {
                     sendMessage(chatId, helpCommand(account.getLocale()));
                     return true;
                 case CMD_SCORE:
-                    sendMessage(chatId, scoreCommand(account));
+                    sendScore(chatId, account);
                     return true;
                 case CMD_TOP:
                     sendMessage(chatId, topCommand(account.getAccountId(), account.getLocale()));
@@ -39,6 +39,10 @@ public abstract class CommandBot extends MessageBot {
             }
         }
         return false;
+    }
+
+    protected void sendScore(Long chatId, Account account) {
+        sendMessage(chatId, scoreCommand(account));
     }
 
     private String helpCommand(Locale locale) {

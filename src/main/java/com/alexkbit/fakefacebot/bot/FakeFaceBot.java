@@ -63,6 +63,7 @@ public class FakeFaceBot extends CommandBot {
             account.updateScore();
             accountService.update(account);
             sendKeyMessage(chatId, "messages.done", account.getLocale());
+            sendScore(chatId, account);
             log.debug("Account = {} completed quiz", account);
             return;
         }
