@@ -11,7 +11,8 @@ public enum Command {
     CMD_START("start", "messages.welcome", "messages.description.cmd.start"),
     CMD_TOP("top", "messages.topTitle", "messages.description.cmd.top"),
     CMD_SCORE("score", "messages.scoreTitle", "messages.description.cmd.score"),
-    CMD_HELP("help", "messages.helpTitle", "messages.description.cmd.help");
+    CMD_HELP("help", "messages.helpTitle", "messages.description.cmd.help"),
+    CMD_ID("id", "messages.accountId", "messages.description.cmd.accountId");
 
     private String name;
     private String text;

@@ -1,8 +1,8 @@
 package com.alexkbit.fakefacebot.bot;
 
 import com.alexkbit.fakefacebot.config.QuestionsConfig;
-import com.alexkbit.fakefacebot.model.Command;
 import com.alexkbit.fakefacebot.model.Account;
+import com.alexkbit.fakefacebot.model.Command;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
@@ -33,6 +33,9 @@ public abstract class CommandBot extends MessageBot {
                     return true;
                 case CMD_TOP:
                     sendMessage(chatId, topCommand(account.getAccountId(), account.getLocale()));
+                    return true;
+                case CMD_ID:
+                    sendKeyMessage(chatId, cmd.getKey(), account.getLocale(), account.getAccountId());
                     return true;
                 default:
                     return false;
