@@ -34,7 +34,7 @@ public class FakeFaceBot extends CommandBot {
     @Autowired
     private PhotoService photoService;
 
-    private boolean enable = true;
+    private volatile boolean enable = true;
 
     @Override
     public void onReceived(Message msg, Long chatId, Account account, String text) {

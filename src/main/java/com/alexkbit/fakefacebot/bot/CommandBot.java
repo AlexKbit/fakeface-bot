@@ -60,6 +60,9 @@ public abstract class CommandBot extends MessageBot {
     }
 
     private String scoreCommand(Account account) {
+        if (!account.isFinished()) {
+            return getMessage("messages.notFinished", account.getLocale());
+        }
         Long score = accountService.getByAccountId(account.getAccountId()).getScore();
         Integer total = questionsConfig.size();
         long position = accountService.getPosition(account.getScore(), account.getTimestamp());
