@@ -31,6 +31,9 @@ public class Account {
     private List<Answer> answers = new ArrayList<>();
 
     public Locale getLocale() {
+        if (langCode == null) {
+            return Locale.ENGLISH;
+        }
         return new Locale(langCode);
     }
 

@@ -6,9 +6,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Slf4j
 @Service
@@ -24,6 +26,9 @@ public class AccountService {
         account.setLogin(login);
         account.setFirstName(firstName);
         account.setLastName(lastName);
+        if (StringUtils.isEmpty(langCode)) {
+            account.setLangCode(Locale.ENGLISH.getLanguage());
+        }
         account.setLangCode(langCode);
         account.setChatId(chatId);
         account.setScore(0L);

@@ -29,6 +29,9 @@ public abstract class MessageBot extends BaseBot {
     }
 
     public String getMessage(String key, Locale locale, Object... params) {
+        if (locale == null) {
+            return messageService.getMessage(key, Locale.ENGLISH, params);
+        }
         return messageService.getMessage(key, locale, params);
     }
 
