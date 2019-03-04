@@ -43,7 +43,7 @@ public class Account {
     }
 
     public void addAnswer(Integer id, PhotoType choose, Boolean valid) {
-        answers.add(new Answer(null, id, accountId, choose, valid));
+        answers.add(new Answer(id, accountId, choose, valid));
     }
 
     public Integer getCurrentQuestion() {

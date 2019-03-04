@@ -10,7 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection="answers")
 public class Answer {
     @Id
-    private String id;
     private Integer qId;
     private Integer accountId;
     private PhotoType choose;
