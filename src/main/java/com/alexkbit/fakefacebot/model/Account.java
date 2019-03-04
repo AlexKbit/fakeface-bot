@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
@@ -31,7 +30,6 @@ public class Account {
     @Indexed
     private Date timestamp;
     private boolean finished = false;
-    @DBRef
     @Setter(AccessLevel.PRIVATE)
     private List<Answer> answers = new ArrayList<>();
 
@@ -43,7 +41,7 @@ public class Account {
     }
 
     public void addAnswer(Integer id, PhotoType choose, Boolean valid) {
-        answers.add(new Answer(id, accountId, choose, valid));
+        answers.add(new Answer(id, choose, valid));
     }
 
     public Integer getCurrentQuestion() {
