@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -45,8 +44,9 @@ public class AccountService {
         return repository.findByAccountId(accountId);
     }
 
-    public long getPosition(Long score, Date timestamp) {
-        return repository.countByScoreGreaterThanEqualAndTimestampLessThan(score, timestamp);
+    public long getPosition(Account account) {
+        return repository.countByScoreGreaterThanEqualAndSpendTimeLessThanAndTimestampLessThan(
+                account.getScore(), account.getSpendTime(), account.getTimestamp());
     }
 
     public long getTotal() {
@@ -58,7 +58,7 @@ public class AccountService {
     }
 
     public List<Account> getTop() {
-        return repository.findTop10ByFinishedTrueOrderByScoreDescTimestampAsc();
+        return repository.findTop10ByFinishedTrueOrderByScoreDescSpendTimeAscTimestampAsc();
     }
 
 }

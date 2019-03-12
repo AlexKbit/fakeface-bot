@@ -10,9 +10,9 @@ public interface AccountRepository extends MongoRepository<Account, Integer> {
 
     Account findByAccountId(Integer id);
 
-    List<Account> findTop10ByFinishedTrueOrderByScoreDescTimestampAsc();
+    List<Account> findTop10ByFinishedTrueOrderByScoreDescSpendTimeAscTimestampAsc();
 
-    long countByScoreGreaterThanEqualAndTimestampLessThan(Long score, Date timestamp);
+    long countByScoreGreaterThanEqualAndSpendTimeLessThanAndTimestampLessThan(Long score, Long spendTime, Date timestamp);
 
     long countByFinishedTrue();
 }

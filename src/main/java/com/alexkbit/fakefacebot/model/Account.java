@@ -29,6 +29,7 @@ public class Account {
     private Long score;
     @Indexed
     private Date timestamp;
+    private Long spendTime;
     private boolean finished = false;
     @Setter(AccessLevel.PRIVATE)
     private List<Answer> answers = new ArrayList<>();
@@ -52,5 +53,6 @@ public class Account {
         score = answers.stream().filter(Answer::getValid).count();
         timestamp = new Date();
         finished = true;
+        spendTime = timestamp.getTime() - createdAt.getTime();
     }
 }

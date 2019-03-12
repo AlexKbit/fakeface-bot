@@ -65,7 +65,7 @@ public abstract class CommandBot extends MessageBot {
         }
         Long score = accountService.getByAccountId(account.getAccountId()).getScore();
         Integer total = questionsConfig.size();
-        long position = accountService.getPosition(account.getScore(), account.getTimestamp());
+        long position = accountService.getPosition(account);
         Long allPeople = accountService.getTotal();
         Long allFinished = accountService.getTotalFinished();
         return getMessage(Command.CMD_SCORE.getKey(), account.getLocale(), score, total, position + 1, allPeople, allFinished);
