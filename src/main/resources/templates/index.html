@@ -51,7 +51,7 @@
                     <th>{{ account.lastName }}</th>
                     <th>{{ account.score }}</th>
                     <th>{{ account.timestamp | date:'dd-MM-yyyy HH:mm:ss'}}</th>
-                    <th>{{ account.spendTime | date:'HH:mm:ss'}}</th>
+                    <th>{{ millisToUTCDate(account.spendTime) | date:'HH:mm:ss.sss'}}</th>
                 </tr>
                 </tbody>
             </table>
