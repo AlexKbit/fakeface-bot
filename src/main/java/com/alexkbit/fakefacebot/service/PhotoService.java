@@ -35,6 +35,17 @@ public class PhotoService {
         return null;
     }
 
+    public InputStream loadPhoto(String name, PhotoType type) {
+        String key = type.getPath() + name;
+        try {
+            InputStream is = new ClassPathResource(key).getInputStream();
+            return is;
+        } catch (IOException e) {
+            log.error("Error load photo with name {}", e, name);
+        }
+        return null;
+    }
+
     public void updateCache(String name, PhotoType type, String photoId) {
         String key = type.getPath() + name;
         if (cache.containsKey(key)) {

@@ -16,7 +16,7 @@
         <div id="navbar" class="navbar-collapse">
             <ul class="nav text-center">
                 <li>
-                    <h1>Telegram: @epamfakeface</h1>
+                    <h1>Telegram: @epamfakefacebot</h1>
                 </li>
             </ul>
         </div>
@@ -24,45 +24,56 @@
 </nav>
 <div align="center">
     <div class="container" align="center">
-        <img src="/images/logo.png" width="64px" height="64ps">
-        <img src="/images/telegram.png" width="64px" height="64ps">
-        <h2>Top participants</h2>
+        <img src="/images/logo.png" width="64px" height="64px">
+        <img src="/images/telegram.png" width="64px" height="64px">
+        <hr/>
     </div>
-    <div class="container" align="center">
-        <div class="tableContainer">
-            <hr/>
-            <table class="table table-striped table-bordered table-hover list">
-                <thead>
-                <tr>
-                    <th>AccountId</th>
-                    <th>Login</th>
-                    <th>FirstName</th>
-                    <th>LastName</th>
-                    <th>Score</th>
-                    <th>CompletedAt</th>
-                    <th>SpendTime</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr data-ng-repeat="account in accounts">
-                    <th> <img src="/images/winner.png" width="24px" height="24ps">{{ account.accountId }}</th>
-                    <th>{{ account.login }}</th>
-                    <th>{{ account.firstName }}</th>
-                    <th>{{ account.lastName }}</th>
-                    <th>{{ account.score }}</th>
-                    <th>{{ account.timestamp | date:'dd-MM-yyyy HH:mm:ss'}}</th>
-                    <th>{{ millisToUTCDate(account.spendTime) | date:'HH:mm:ss.sss'}}</th>
-                </tr>
-                </tbody>
-            </table>
-            <div>
-                <p data-ng-app="totalCompleted"> Total completed: {{ totalCompleted }}</p>
-                <p data-ng-app="totalAccounts"> Total participants: {{ totalAccounts }}</p>
+    <div class="row">
+        <div class="col-md-3">
+            <div align="center">
+                <h2>The most difficult face</h2>
+                <img id="topIncorrect" src="/top/incorrect" width="240px" height="240px" class="image-avatar">
+                <h2>FAKE? REAL?</h2>
             </div>
-            <hr/>
+        </div>
+        <div class="col-md-8">
+            <div class="" align="center">
+            <h2>Top participants</h2>
+            <div class="tableContainer">
+                <table class="table table-striped table-bordered table-hover list">
+                    <thead>
+                    <tr>
+                        <th>AccountId</th>
+                        <th>Login</th>
+                        <th>FirstName</th>
+                        <th>LastName</th>
+                        <th>Score</th>
+                        <th>CompletedAt</th>
+                        <th>SpendTime</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="account in accounts">
+                        <th> <img src="/images/winner.png" width="24px" height="24px">{{ account.accountId }}</th>
+                        <th>{{ account.login }}</th>
+                        <th>{{ account.firstName }}</th>
+                        <th>{{ account.lastName }}</th>
+                        <th>{{ account.score }}</th>
+                        <th>{{ account.timestamp | date:'dd-MM-yyyy HH:mm:ss'}}</th>
+                        <th>{{ millisToUTCDate(account.spendTime) | date:'HH:mm:ss.sss'}}</th>
+                    </tr>
+                    </tbody>
+                </table>
+                <div>
+                    <p data-ng-app="totalCompleted"> Total completed: {{ totalCompleted }}</p>
+                    <p data-ng-app="totalAccounts"> Total participants: {{ totalAccounts }}</p>
+                </div>
+            </div>
+        </div>
         </div>
     </div>
     <footer class="footer">
+        <hr/>
         <p data-ng-app="botName"> Bot: {{ botName }}</p>
         <p data-ng-app="botVersion"> Version: {{ botVersion }}</p>
     </footer>

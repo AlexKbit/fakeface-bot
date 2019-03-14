@@ -1,10 +1,17 @@
 package com.alexkbit.fakefacebot.service;
 
 import com.alexkbit.fakefacebot.model.Account;
+import com.alexkbit.fakefacebot.model.Answer;
+import com.alexkbit.fakefacebot.model.AnswerCount;
 import com.alexkbit.fakefacebot.repository.AccountRepository;
 import com.alexkbit.fakefacebot.repository.AnswerRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -12,16 +19,17 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 import java.util.Locale;
 
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
+
 @Slf4j
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class AccountService {
 
-    @Autowired
-    private AccountRepository repository;
-
-    @Autowired
-    private AnswerRepository answerRepository;
+    private final AccountRepository repository;
+    private final AnswerRepository answerRepository;
+    private final MongoTemplate mongoTemplate;
 
     public Account registration(Integer id, String login, String firstName, String lastName, String langCode, Long chatId) {
         Account account = new Account();
@@ -64,6 +72,17 @@ public class AccountService {
 
     public List<Account> getTop() {
         return repository.findTop10ByFinishedTrueOrderByScoreDescSpendTimeAscTimestampAsc();
+    }
+
+    public List<AnswerCount> getTopIncorrectAnswer() {
+        Aggregation agg = newAggregation(
+                match(Criteria.where("valid").is(false)),
+                group("qId").count().as("total"),
+                project("total").and("qId").previousOperation(),
+                sort(Sort.Direction.DESC, "total")
+        );
+        AggregationResults<AnswerCount> groupResults = mongoTemplate.aggregate(agg, Answer.class, AnswerCount.class);
+        return groupResults.getMappedResults();
     }
 
 }
