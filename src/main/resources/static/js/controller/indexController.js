@@ -50,7 +50,7 @@ App.controller('indexController', ['$scope', 'AccountService', '$interval', func
     }.bind(this), 3000);
 
     var toUTCDate = function(date){
-        var _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+        var _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds());
         return _utc;
     };
 
