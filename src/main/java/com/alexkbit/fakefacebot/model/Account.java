@@ -1,10 +1,10 @@
 package com.alexkbit.fakefacebot.model;
 
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.Locale;
 @Document("accounts")
 public class Account {
     @Id
-    private String id;
+    private ObjectId id;
     @Indexed
     private Integer accountId;
     private String login;
@@ -31,7 +31,7 @@ public class Account {
     private Date timestamp;
     private Long spendTime;
     private boolean finished = false;
-    @Setter(AccessLevel.PRIVATE)
+    @DBRef
     private List<Answer> answers = new ArrayList<>();
 
     public Locale getLocale() {
@@ -42,7 +42,7 @@ public class Account {
     }
 
     public void addAnswer(Integer id, PhotoType choose, Boolean valid) {
-        answers.add(new Answer(id, choose, valid));
+        answers.add(new Answer(null, id, choose, valid));
     }
 
     public Integer getCurrentQuestion() {

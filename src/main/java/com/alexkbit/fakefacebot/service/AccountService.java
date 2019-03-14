@@ -2,6 +2,7 @@ package com.alexkbit.fakefacebot.service;
 
 import com.alexkbit.fakefacebot.model.Account;
 import com.alexkbit.fakefacebot.repository.AccountRepository;
+import com.alexkbit.fakefacebot.repository.AnswerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class AccountService {
 
     @Autowired
     private AccountRepository repository;
+
+    @Autowired
+    private AnswerRepository answerRepository;
 
     public Account registration(Integer id, String login, String firstName, String lastName, String langCode, Long chatId) {
         Account account = new Account();
@@ -37,6 +41,7 @@ public class AccountService {
     }
 
     public Account update(Account account) {
+        answerRepository.saveAll(account.getAnswers());
         return repository.save(account);
     }
 
