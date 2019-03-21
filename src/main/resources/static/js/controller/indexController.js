@@ -2,6 +2,7 @@
 
 App.controller('indexController', ['$scope', 'AccountService', '$interval', function($scope, AccountService, $interval) {
 
+    $scope.topIncorrectImage = "/top/incorrect";
     $scope.totalAccounts = 0;
     $scope.totalCompleted = 0;
     $scope.accounts = [];
