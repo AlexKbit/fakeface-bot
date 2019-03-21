@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StatisticService {
 
-    private static final String DEFAULT_IMAGE = "question";
+    private static final String DEFAULT_IMAGE = "question.png";
 
     private final AccountService accountService;
     private final QuestionsConfig questionsConfig;
