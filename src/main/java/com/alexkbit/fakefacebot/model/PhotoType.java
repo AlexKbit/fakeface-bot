@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum PhotoType {
+    OTHER("classpath:photos/other/"),
     REAL("classpath:photos/real/"),
     FAKE("classpath:photos/fake/");
 
