@@ -27,8 +27,12 @@ public class AppController {
 
     private static final String CONTENT_TYPES = "image/jpeg, image/jpg, image/png, image/gif";
 
+
     @Value("${telegram.bot.name}")
     private String botName;
+
+    @Value("${spring.application.version}")
+    private String version;
 
     private final AccountService accountService;
     private final StatisticService statisticService;
@@ -40,7 +44,7 @@ public class AppController {
         log.debug("getInfo() - start");
         Map<String, String> info = new HashMap<>();
         info.put("botName", botName);
-        info.put("version", "1.0.0");
+        info.put("version", version);
         log.debug("getInfo() - end");
         return info;
     }
