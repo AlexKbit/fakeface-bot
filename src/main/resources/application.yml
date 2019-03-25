@@ -3,8 +3,7 @@ server:
 spring:
   application:
       name: fakeface-bot
-      date: '@build.date@'
-      version: '@build.version@'
+      version: '0.0.1'
   data.mongodb:
     uri: ${MONGO_DB}
 
