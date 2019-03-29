@@ -17,6 +17,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -105,7 +106,8 @@ public class FakeFaceBot extends CommandBot {
     }
 
     public void notifyWinners() {
-        List<Account> winners = accountService.getTop();
+        long wCount = questionsConfig.getWinnersCount();
+        List<Account> winners = accountService.getTop().stream().limit(wCount).collect(Collectors.toList());
         winners.forEach(account -> sendKeyMessage(account.getChatId(), "messages.winner", account.getLocale()));
         log.info("Notify winners: {}", winners);
     }

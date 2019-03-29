@@ -1,6 +1,7 @@
 package com.alexkbit.fakefacebot.controller;
 
 import com.alexkbit.fakefacebot.bot.FakeFaceBot;
+import com.alexkbit.fakefacebot.config.QuestionsConfig;
 import com.alexkbit.fakefacebot.service.AccountService;
 import com.alexkbit.fakefacebot.service.StatisticService;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,7 @@ public class AppController {
 
     private final AccountService accountService;
     private final StatisticService statisticService;
+    private final QuestionsConfig questionsConfig;
     private final FakeFaceBot fakeFaceBot;
 
     @GetMapping(value = "/info")
@@ -57,6 +59,7 @@ public class AppController {
         stat.put("top", accountService.getTop());
         stat.put("totalFinished", accountService.getTotalFinished());
         stat.put("totalTotal", accountService.getTotal());
+        stat.put("winnersCount", String.valueOf(questionsConfig.getWinnersCount()));
         log.debug("getStat() - end");
         return stat;
     }

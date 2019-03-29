@@ -18,6 +18,7 @@ logging:
     org.springframework: INFO
 
 questions-config:
+  winnersCount: 5
   questions:
   - id: 0
     photo: "fake1.jpg"

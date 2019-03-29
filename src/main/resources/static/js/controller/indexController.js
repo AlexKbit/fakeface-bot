@@ -5,6 +5,7 @@ App.controller('indexController', ['$scope', 'AccountService', '$interval', func
     $scope.topIncorrectImage = "/top/incorrect";
     $scope.totalAccounts = 0;
     $scope.totalCompleted = 0;
+    $scope.winnersCount = 0;
     $scope.accounts = [];
 
     $scope.botName = '';
@@ -16,6 +17,7 @@ App.controller('indexController', ['$scope', 'AccountService', '$interval', func
 
             $scope.totalAccounts = results.totalTotal;
             $scope.totalCompleted = results.totalFinished;
+            $scope.winnersCount = results.winnersCount;
             $scope.accounts = results.top;
 
         }, function (error) {

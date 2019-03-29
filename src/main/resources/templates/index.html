@@ -55,7 +55,7 @@
                     </thead>
                     <tbody>
                     <tr data-ng-repeat="account in accounts">
-                        <th> <img src="/images/winner.png" width="24px" height="24px">{{ account.accountId }}</th>
+                        <th> <img ng-if="$index < winnersCount" src="/images/winner.png" width="24px" height="24px">{{ account.accountId }}</th>
                         <th>{{ account.login }}</th>
                         <th>{{ account.firstName }}</th>
                         <th>{{ account.lastName }}</th>

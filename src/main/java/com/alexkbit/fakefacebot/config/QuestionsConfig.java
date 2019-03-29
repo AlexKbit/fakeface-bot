@@ -14,6 +14,7 @@ import java.util.List;
 public class QuestionsConfig {
 
     private List<Question> questions;
+    private Long winnersCount;
 
     public Question findById(Integer id) {
         return questions.stream().filter(q -> q.getId().equals(id)).findFirst().orElse(null);
