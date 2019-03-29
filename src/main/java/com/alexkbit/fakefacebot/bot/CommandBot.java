@@ -72,12 +72,14 @@ public abstract class CommandBot extends MessageBot {
     }
 
     private String topCommand(Locale locale) {
+        Long winnersCount = questionsConfig.getWinnersCount();
         StringBuilder sb = new StringBuilder();
         sb.append(getMessage(Command.CMD_TOP.getKey(), locale));
         List<Account> topList = accountService.getTop();
         for (int i=0; i< topList.size(); i++) {
             Account a = topList.get(i);
-            sb.append(String.format("\n%s) [%s] %s %s = %s", i + 1, a.getLogin(), a.getFirstName(), a.getLastName(), a.getScore()));
+            String isWinner = i < winnersCount ? "\uD83C\uDFC6" : "";
+            sb.append(String.format("\n%s) %s[%s] %s %s = %s", i + 1, isWinner, a.getLogin(), a.getFirstName(), a.getLastName(), a.getScore()));
         }
         return sb.toString();
     }
