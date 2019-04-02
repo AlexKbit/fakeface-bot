@@ -37,6 +37,22 @@ App.controller('indexController', ['$scope', 'AccountService', '$interval', func
         });
     };
 
+    var enableGame = function () {
+        AccountService.enableGame();
+    };
+
+    var disableGame = function () {
+        AccountService.disableGame();
+    };
+
+    var notifyWinners = function () {
+        AccountService.notifyWinners();
+    };
+
+    var sendResults = function () {
+        AccountService.sendResults();
+    };
+
     loadInfo();
     loadStat();
 

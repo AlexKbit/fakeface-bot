@@ -29,6 +29,22 @@ App.factory('AccountService', ['$http', '$q', function($http, $q){
                         return $q.reject(errResponse);
                     }
                 );
+        },
+
+        enableGame: function() {
+            return $http.get(HOST + 'enable');
+        },
+
+        disableGame: function() {
+            return $http.get(HOST + 'disable');
+        },
+
+        notifyWinners: function() {
+            return $http.get(HOST + 'notify');
+        },
+
+        sendResults: function() {
+            return $http.get(HOST + 'results');
         }
     };
 
