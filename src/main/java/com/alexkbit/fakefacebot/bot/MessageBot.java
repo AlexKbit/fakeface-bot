@@ -59,10 +59,10 @@ public abstract class MessageBot extends BaseBot {
         sb.append("You results:");
         sb.append("\n| № | Answer | Valid |");
         for (Answer answer : account.getAnswers()) {
-            String qId = String.valueOf(answer.getQId() + 1);
+            String qId = answer.getQId() < 9 ? "  " + (answer.getQId() + 1) : String.valueOf(answer.getQId() + 1);
             String choose = answer.getChoose().name();
             String valid = answer.getValid() ? "✅" : "❌";
-            sb.append("\n| " + qId + " | " + choose + " | " + valid + " |");
+            sb.append("\n| " + qId + " |   " + choose + "   |   " + valid + "  |");
         }
         return sb.toString();
     }
