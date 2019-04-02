@@ -108,6 +108,9 @@ public class FakeFaceBot extends CommandBot {
     }
 
     public void notifyWinners() {
+        if (enable) {
+            return;
+        }
         long wCount = questionsConfig.getWinnersCount();
         List<Account> winners = accountService.getTop().stream().limit(wCount).collect(Collectors.toList());
         winners.forEach(account -> sendKeyMessage(account.getChatId(), "messages.winner", account.getLocale()));
