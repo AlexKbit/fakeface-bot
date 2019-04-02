@@ -75,7 +75,7 @@ public class AppController {
         response.getOutputStream().close();
     }
 
-    @GetMapping(value = "/manage/notify")
+    @GetMapping(value = "/notify")
     @ResponseStatus(HttpStatus.OK)
     public void getNotify() {
         log.debug("getNotify() - start");
@@ -83,7 +83,7 @@ public class AppController {
         log.debug("getNotify() - end");
     }
 
-    @GetMapping(value = "/manage/results")
+    @GetMapping(value = "/results")
     @ResponseStatus(HttpStatus.OK)
     public void getResults() {
         log.debug("getResults() - start");
@@ -91,7 +91,7 @@ public class AppController {
         log.debug("getResults() - end");
     }
 
-    @GetMapping(value = "/manage/enable")
+    @GetMapping(value = "/enable")
     @ResponseStatus(HttpStatus.OK)
     public void enable() {
         log.debug("enable() - start");
@@ -99,7 +99,7 @@ public class AppController {
         log.debug("enable() - end");
     }
 
-    @GetMapping(value = "/manage/disable")
+    @GetMapping(value = "/disable")
     @ResponseStatus(HttpStatus.OK)
     public void disable() {
         log.debug("disable() - start");

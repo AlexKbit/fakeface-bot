@@ -2,7 +2,7 @@
 
 App.controller('adminController', ['$scope', 'ControlService', '$interval', function($scope, ControlService, $interval) {
 
-    var enableGame = function () {
+    $scope.enableGame = function () {
         ControlService.enableGame().then(function (results) {
                console.log(results);
            }, function (error) {
@@ -10,7 +10,7 @@ App.controller('adminController', ['$scope', 'ControlService', '$interval', func
            });
     };
 
-    var disableGame = function () {
+    $scope.disableGame = function () {
         ControlService.disableGame().then(function (results) {
                console.log(results);
            }, function (error) {
@@ -18,7 +18,7 @@ App.controller('adminController', ['$scope', 'ControlService', '$interval', func
            });
     };
 
-    var notifyWinners = function () {
+    $scope.notifyWinners = function () {
         ControlService.notifyWinners().then(function (results) {
                console.log(results);
            }, function (error) {
@@ -26,7 +26,7 @@ App.controller('adminController', ['$scope', 'ControlService', '$interval', func
            });
     };
 
-    var sendResults = function () {
+    $scope.sendResults = function () {
         ControlService.sendResults().then(function (results) {
                console.log(results);
            }, function (error) {
