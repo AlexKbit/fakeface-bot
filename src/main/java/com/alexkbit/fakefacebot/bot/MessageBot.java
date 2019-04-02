@@ -57,17 +57,17 @@ public abstract class MessageBot extends BaseBot {
     private String resultTable(Account account) {
         StringBuilder sb = new StringBuilder();
         sb.append("You results:");
-        sb.append("\n+---+----------+---------+");
-        sb.append("\n|№|Answer| Valid |");
-        sb.append("\n+---+----------+---------+");
+        sb.append("\n+----+-----------+---------+");
+        sb.append("\n|№ |Answer| Valid |");
+        sb.append("\n+----+-----------+---------+");
         for (Answer answer : account.getAnswers()) {
-            String qId = answer.getQId() < 10 ? " " + (answer.getQId() + 1) : String.valueOf(answer.getQId() + 1);
+            String qId = answer.getQId() < 9 ? "  " + (answer.getQId() + 1) : String.valueOf(answer.getQId() + 1);
             String choose = answer.getChoose().name();
             String valid = answer.getValid() ? "✅" : "⛔️";
 
             sb.append("\n|" + qId)
-                    .append("|" + fixedLengthString(choose, 6))
-                    .append("  |" + fixedLengthString(valid, 4) + "  |");
+                    .append(" |" + fixedLengthString(choose, 6))
+                    .append("   |" + fixedLengthString(valid, 4) + "  |");
         }
         sb.append("\n+---+----------+---------+");
         return sb.toString();
