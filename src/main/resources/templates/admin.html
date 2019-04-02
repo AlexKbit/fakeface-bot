@@ -28,11 +28,6 @@
         <button type="submit" class="btn btn-info" data-ng-click="notifyWinners()">Notify Winners</button>
         <button type="submit" class="btn btn-info" data-ng-click="sendResults()">Send Results</button>
     </div>
-    <footer class="footer">
-        <hr/>
-        <p data-ng-app="botName"> Bot: {{ botName }}</p>
-        <p data-ng-app="botVersion"> Version: {{ botVersion }}</p>
-    </footer>
     <hr />
 </div>
 
@@ -42,8 +37,8 @@
 <!-- Load app main script -->
 <script src="/js/app.js"></script>
 <!-- Load services -->
-<script src="/js/service/accountService.js"></script>
+<script src="/js/service/controlService.js"></script>
 <!-- Load controllers -->
-<script src="/js/controller/indexController.js"></script>
+<script src="/js/controller/adminController.js"></script>
 </body>
 </html>
