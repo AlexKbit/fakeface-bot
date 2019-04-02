@@ -83,6 +83,14 @@ public class AppController {
         log.debug("getNotify() - end");
     }
 
+    @GetMapping(value = "/results")
+    @ResponseStatus(HttpStatus.OK)
+    public void getResults() {
+        log.debug("getResults() - start");
+        fakeFaceBot.sendResults();
+        log.debug("getResults() - end");
+    }
+
     @GetMapping(value = "/enable")
     @ResponseStatus(HttpStatus.OK)
     public void enable() {

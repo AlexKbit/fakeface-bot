@@ -12,6 +12,8 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -84,5 +86,10 @@ public class AccountService {
         AggregationResults<AnswerCount> groupResults = mongoTemplate.aggregate(agg, Answer.class, AnswerCount.class);
         return groupResults.getMappedResults();
     }
+
+    public Page<Account> getPage(int pageNumber, int pageSize) {
+        return repository.findAll(PageRequest.of(pageNumber, pageSize));
+    }
+
 
 }

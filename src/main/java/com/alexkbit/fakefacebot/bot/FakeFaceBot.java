@@ -7,6 +7,8 @@ import com.alexkbit.fakefacebot.service.PhotoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -110,6 +112,19 @@ public class FakeFaceBot extends CommandBot {
         List<Account> winners = accountService.getTop().stream().limit(wCount).collect(Collectors.toList());
         winners.forEach(account -> sendKeyMessage(account.getChatId(), "messages.winner", account.getLocale()));
         log.info("Notify winners: {}", winners);
+    }
+
+    public void sendResults() {
+        if (enable) {
+            return;
+        }
+        Page<Account> page = accountService.getPage(0, 20);
+        sendResults(page.getContent());
+        while (!page.isLast()) {
+            Pageable p = page.nextPageable();
+            page = accountService.getPage(p.getPageNumber(), p.getPageSize());
+            sendResults(page.getContent());
+        }
     }
 
     public void enable() {

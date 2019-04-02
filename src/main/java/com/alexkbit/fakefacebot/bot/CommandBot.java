@@ -1,18 +1,13 @@
 package com.alexkbit.fakefacebot.bot;
 
-import com.alexkbit.fakefacebot.config.QuestionsConfig;
 import com.alexkbit.fakefacebot.model.Account;
 import com.alexkbit.fakefacebot.model.Command;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
 import java.util.List;
 import java.util.Locale;
 
 public abstract class CommandBot extends MessageBot {
-
-    @Autowired
-    protected QuestionsConfig questionsConfig;
 
     @Override
     protected boolean messageFilter(Message msg, Long chatId, Account account, String text) {
