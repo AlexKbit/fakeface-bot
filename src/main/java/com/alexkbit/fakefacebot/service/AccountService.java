@@ -60,8 +60,8 @@ public class AccountService {
     }
 
     public long getPosition(Account account) {
-        return repository.countByScoreGreaterThanEqualAndSpendTimeLessThanAndTimestampLessThan(
-                account.getScore(), account.getSpendTime(), account.getTimestamp());
+        return repository.countByScoreGreaterThanEqualAndSpendTimeLessThanAndFinishedTrue(
+                account.getScore(), account.getSpendTime());
     }
 
     public long getTotal() {

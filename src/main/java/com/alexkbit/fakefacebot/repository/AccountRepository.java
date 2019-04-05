@@ -13,7 +13,7 @@ public interface AccountRepository extends MongoRepository<Account, ObjectId> {
 
     List<Account> findTop10ByFinishedTrueOrderByScoreDescSpendTimeAscTimestampAsc();
 
-    long countByScoreGreaterThanEqualAndSpendTimeLessThanAndTimestampLessThan(Long score, Long spendTime, Date timestamp);
+    long countByScoreGreaterThanEqualAndSpendTimeLessThanAndFinishedTrue(Long score, Long spendTime);
 
     long countByFinishedTrue();
 }
