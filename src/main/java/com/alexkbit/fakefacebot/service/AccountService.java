@@ -60,7 +60,7 @@ public class AccountService {
     }
 
     public long getPosition(Account account) {
-        return repository.countByScoreGreaterThanEqualAndSpendTimeLessThanAndFinishedTrue(
+        return repository.countByScoreGreaterThanOrScoreGreaterThanEqualAndSpendTimeLessThan(
                 account.getScore(), account.getSpendTime());
     }
 
