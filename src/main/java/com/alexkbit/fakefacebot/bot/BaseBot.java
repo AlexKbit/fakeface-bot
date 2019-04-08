@@ -21,7 +21,6 @@ public abstract class BaseBot extends TelegramLongPollingBot {
         if (msg == null) {
             return;
         }
-        User user = msg.getFrom();
         String text = msg.getText();
         Long chatId = update.getMessage().getChatId();
         Account account = findAccount(msg);

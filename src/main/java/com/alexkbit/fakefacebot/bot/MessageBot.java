@@ -56,8 +56,8 @@ public abstract class MessageBot extends BaseBot {
 
     private String resultTable(Account account) {
         StringBuilder sb = new StringBuilder();
-        sb.append("You answers:");
-        sb.append("\n| № | Type | Valid |");
+        sb.append(getMessage("messages.youAnswers", account.getLocale()));
+        sb.append("\n" + getMessage("messages.resultTableHead", account.getLocale()));
         for (Answer answer : account.getAnswers()) {
             String qId = answer.getQId() < 9 ? "  " + (answer.getQId() + 1) : String.valueOf(answer.getQId() + 1);
             String choose = answer.getChoose().name();
