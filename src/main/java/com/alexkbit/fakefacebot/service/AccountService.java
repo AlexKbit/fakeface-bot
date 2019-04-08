@@ -16,7 +16,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Locale;
@@ -39,10 +38,10 @@ public class AccountService {
         account.setLogin(login);
         account.setFirstName(firstName);
         account.setLastName(lastName);
-        if (StringUtils.isEmpty(langCode)) {
-            account.setLangCode(Locale.ENGLISH.getLanguage());
+        account.setLangCode(Locale.ENGLISH.getLanguage());
+        if ("en".equals(langCode) || "ru".equals(langCode)) {
+            account.setLangCode(langCode);
         }
-        account.setLangCode(langCode);
         account.setChatId(chatId);
         account.setScore(0L);
         Account result = repository.save(account);
