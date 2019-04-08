@@ -62,7 +62,7 @@ public abstract class MessageBot extends BaseBot {
             String qId = answer.getQId() < 9 ? "  " + (answer.getQId() + 1) : String.valueOf(answer.getQId() + 1);
             String choose = answer.getChoose().name();
             String valid = answer.getValid() ? "✅" : "❌";
-            sb.append("\n" + qId + "\t" + choose + "\t" + valid);
+            sb.append("\n" + qId + ")\t" + choose + "\t\t" + valid);
         }
         return sb.toString();
     }
