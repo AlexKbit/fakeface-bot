@@ -67,7 +67,7 @@ App.controller('indexController', ['$scope', 'AccountService', '$interval', func
     $interval(function(){
         $scope.pageChanged();
         $scope.topIncorrectImage = "/top/incorrect?" + new Date().getTime();
-    }.bind(this), 3000);
+    }.bind(this), 10000);
 
     var toUTCDate = function(date){
         var _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds());
