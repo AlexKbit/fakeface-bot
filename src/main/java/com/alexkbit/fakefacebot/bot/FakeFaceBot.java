@@ -50,7 +50,7 @@ public class FakeFaceBot extends CommandBot {
             return;
         }
         Integer currentQuestion = account.getCurrentQuestion();
-        switch (text) {
+        switch (text.toUpperCase()) {
             case FAKE:
                 account.addAnswer(currentQuestion, PhotoType.FAKE, questionsConfig.isValid(currentQuestion, PhotoType.FAKE));
                 accountService.update(account);
